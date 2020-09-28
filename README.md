@@ -5,3 +5,5 @@ https://github.com/security-advisories
 gsa_basic.py prints out base entries from the Github Security Advisories Atoma feed
 
 gsa_advanced.py extracts key Atoma elements such as ID, Title, Updated, Published, CVE and stores the results in a CSV file.
+
+The goal is to create a MISP CSV import feed by hosting the CSV file as an accessible web feed on a local server.
