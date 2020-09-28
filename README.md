@@ -1,5 +1,5 @@
 # Github-Security-Advisories
-Extract Github Security Advisories from:
+Python3 scripts created to extract Github Security Advisories from:
 https://github.com/security-advisories
 
 gsa_basic.py prints out base entries from the Github Security Advisories Atoma feed
