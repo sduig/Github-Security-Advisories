@@ -8,6 +8,8 @@ import pandas as pd
 response = requests.get('https://github.com/security-advisories')
 feed = atoma.parse_atom_bytes(response.content)
 
+new_items = []
+
 for vuln in feed.entries:
     new_item = {}
     new_item['Id'] = re.findall(r'\[(.*?)\]', vuln.title.value)
