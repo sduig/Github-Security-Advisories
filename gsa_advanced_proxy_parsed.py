@@ -7,8 +7,8 @@ import pandas as pd
 
 #Proxy support
 proxies = {
-      "http"="http://<<proxy>>:80"
-      "https"="https://<<proxy>>:80"
+      "http": "http://<<proxy>>:80",
+      "https": "http://<<proxy>>:80",
       }
 
 response = requests.get('https://github.com/security-advisories', proxies=proxies)
