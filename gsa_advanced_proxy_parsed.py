@@ -48,4 +48,7 @@ df1['CVE']  = df['Cve'].str.replace("\[|\]|\'", "")
 df1.head()
 
 #Export to CSV file
-df1.to_csv('/home/<<user>>/GithubSA.csv',index=False, encoding = 'utf-8')
+df1.to_csv('/var/www/gsa/GithubSA.csv',index=False, encoding = 'utf-8')
+
+#Export to HTML file in order to make accessible for MISP import feed
+df1.to_html('/var/www/gsa/GithubSA.html')
