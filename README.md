@@ -82,40 +82,41 @@ S3_PREFIX=github-security-advisories/
 mkdir lambda_package
 cp script.py lambda_package/
 
-# Install dependencies in zip
+4. Install dependencies in zip
 cd lambda_package
 pip install atoma requests pandas boto3 -t .
 zip -r9 ../lambda_function.zip .
 
-# Upload to Lambda
+5. Upload to Lambda
 aws lambda update-function-code --function-name your-lambda-name --zip-file fileb://lambda_function.zip
-# Create zip with dependencies
+
+6. Create zip with dependencies
 mkdir lambda_package
 cp script.py lambda_package/
 
-# Install dependencies in zip
+7. Install dependencies in zip
 cd lambda_package
 pip install atoma requests pandas boto3 -t .
 zip -r9 ../lambda_function.zip .
 
-# Upload to Lambda
+8. Upload to Lambda
 aws lambda update-function-code --function-name your-lambda-name --zip-file fileb://lambda_function.zip
 
-4. Configure Event Bridge (Cron Trigger)
-# Run every 6 hours
+9. Configure Event Bridge (Cron Trigger)
+-- Run every 6 hours
 aws events put-rule --name github-security-scan --schedule-expression "rate(6 hours)"
 
 aws events put-targets --rule github-security-scan --targets "Id"="1","Arn"="arn:aws:lambda:region:account-id:function:your-lambda-name"
-# Run every 6 hours
-aws events put-rule --name github-security-scan --schedule-expression "rate(6 hours)"
 
-5. Required Python Dependencies
+10. Required Python Dependencies
 Ensure these are included in your deployment package:
 
 atoma==0.1.19
 requests==2.31.0
 pandas==2.0.3
 boto3==1.34.0
+
+------------------------------
 Security Enhancements
 No hardcoded credentials - Uses IAM roles
 S3 encryption - Enable server-side encryption on bucket
@@ -124,7 +125,7 @@ Timeout settings - Set to 300 seconds (max)
 Memory allocation - Start with 512MB, adjust based on usage
 Expected Output
 The Lambda function will:
-
+--------------------------------------------
 ✅ Fetch GitHub security advisories feed
 ✅ Parse and extract CVE data
 ✅ Clean and format data
