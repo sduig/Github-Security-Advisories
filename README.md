@@ -53,7 +53,6 @@ Deployment Instructions
 1. Create IAM Role
 json
 
-Copy
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -66,6 +65,7 @@ Copy
     }
   ]
 }
+
 Attach Managed Policy:
 
 AmazonS3FullAccess (or custom policy with specific bucket permissions)
@@ -76,10 +76,8 @@ In Lambda Console → Configuration → Environment Variables:
 FEED_URL=https://github.com/security-advisories
 S3_BUCKET=your-lambda-output-bucket
 S3_PREFIX=github-security-advisories/
-3. Create Deployment Package
-bash
 
-Copy
+3. Create Deployment Package
 # Create zip with dependencies
 mkdir lambda_package
 cp script.py lambda_package/
@@ -91,14 +89,26 @@ zip -r9 ../lambda_function.zip .
 
 # Upload to Lambda
 aws lambda update-function-code --function-name your-lambda-name --zip-file fileb://lambda_function.zip
-4. Configure Event Bridge (Cron Trigger)
-bash
+# Create zip with dependencies
+mkdir lambda_package
+cp script.py lambda_package/
 
-Copy
+# Install dependencies in zip
+cd lambda_package
+pip install atoma requests pandas boto3 -t .
+zip -r9 ../lambda_function.zip .
+
+# Upload to Lambda
+aws lambda update-function-code --function-name your-lambda-name --zip-file fileb://lambda_function.zip
+
+4. Configure Event Bridge (Cron Trigger)
 # Run every 6 hours
 aws events put-rule --name github-security-scan --schedule-expression "rate(6 hours)"
 
 aws events put-targets --rule github-security-scan --targets "Id"="1","Arn"="arn:aws:lambda:region:account-id:function:your-lambda-name"
+# Run every 6 hours
+aws events put-rule --name github-security-scan --schedule-expression "rate(6 hours)"
+
 5. Required Python Dependencies
 Ensure these are included in your deployment package:
 
